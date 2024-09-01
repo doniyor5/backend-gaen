@@ -4,7 +4,7 @@ from slugify import slugify
 
 from django.db import models
 
-from GAEN.userAuth.models import User
+from userAuth.models import User
 
 
 class Category(models.Model):
