@@ -8,7 +8,7 @@ from .serializers import ArtSerializer, CommentSerializer, CategorySerializer
 from userAuth.serializers import UserSerializer  # type: ignore[attr-defined]
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from .permissons import AdminUserCustom
+from .permission import AdminUserCustom
 
 
 class AdminCategoryAPIView(GenericAPIView):
