@@ -12,7 +12,7 @@ CD.yml
 .DS_Store
 # C extensions
 *.so
-
+.env
 # Distribution / packaging
 .Python
 build/
