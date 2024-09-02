@@ -7,3 +7,4 @@ venv
 *pyc
 migrations
 .DS_Store
+.env
