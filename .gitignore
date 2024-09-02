@@ -1,5 +1,5 @@
-.env
-.env/
+gaen/.env
+gaen/.env/
 .idea
 .vscode
 .github
@@ -7,4 +7,3 @@ venv
 *pyc
 migrations
 .DS_Store
-.env

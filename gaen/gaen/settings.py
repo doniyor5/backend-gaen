@@ -5,7 +5,7 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(BASE_DIR / '../.env')
+environ.Env.read_env(BASE_DIR / '.env')
 
 env = environ.Env()
 
