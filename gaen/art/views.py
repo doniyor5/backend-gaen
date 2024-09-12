@@ -1,14 +1,13 @@
-from rest_framework.generics import GenericAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, status
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
 from .models import Art, Comment, Category
 from .pagination import StandardResultsSetPagination
-from .serializers import ArtSerializer, CommentSerializer, CategorySerializer
-from userAuth.serializers import UserSerializer  # type: ignore[attr-defined]
-from rest_framework.filters import SearchFilter
-from django_filters.rest_framework import DjangoFilterBackend
 from .permission import AdminUserCustom
+from .serializers import ArtSerializer, CommentSerializer, CategorySerializer
 
 
 class AdminCategoryAPIView(GenericAPIView):

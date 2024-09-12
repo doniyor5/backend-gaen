@@ -1,6 +1,3 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from slugify import slugify
 import uuid
-
-from art.models import Category
-from art.serializers import CategorySerializer
