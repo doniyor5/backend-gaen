@@ -91,15 +91,24 @@ WSGI_APPLICATION = 'gaen.wsgi.application'
 AUTH_USER_MODEL = 'userAuth.User'
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB', default='postgres'),
-        'USER': env('POSTGRES_USER', default='postgres'),
-        'PASSWORD': env('POSTGRES_PASSWORD', default='postgres'),
-        'HOST': env('POSTGRES_HOST', default='127.0.0.1'),
-        'PORT': env('POSTGRES_PORT', default='5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('POSTGRES_DB', default='postgres'),
+#         'USER': env('POSTGRES_USER', default='postgres'),
+#         'PASSWORD': env('POSTGRES_PASSWORD', default='postgres'),
+#         'HOST': env('POSTGRES_HOST', default='127.0.0.1'),
+#         'PORT': env('POSTGRES_PORT', default='5432'),
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

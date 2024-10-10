@@ -4,8 +4,8 @@ from slugify import slugify
 
 from django.db import models
 
+# from userAuth.models import User
 from userAuth.models import User
-from gaen.userAuth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
