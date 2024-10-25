@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     slug = models.CharField(max_length=300, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if self.username is None:
+        if self.username is not None:
             self.slug = slugify(str(self.username) + '-' + str(self.date_joined)[:25])
         else:
             self.slug = slugify(str(self.first_name) + '-' + str(self.date_joined)[:25])

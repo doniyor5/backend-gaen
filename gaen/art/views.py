@@ -65,6 +65,8 @@ class ArtAPIView(GenericAPIView):
     permission_classes = [AdminUserCustom]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
+    def get_queryset(self):
+        return Art.objects.all()
 
     def get(self, request, slug=None):
         user = request.user
@@ -111,7 +113,7 @@ class ArtAPIView(GenericAPIView):
             serializer = ArtSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
         serializer = ArtSerializer(arts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json')
 
     def post(self, request):
         user = request.user
