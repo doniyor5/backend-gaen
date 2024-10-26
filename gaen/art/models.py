@@ -58,6 +58,7 @@ class Art(models.Model):
 
     class Meta:
         db_table = 'Art'
+        ordering = ['id']
 
 
 class Comment(models.Model):
