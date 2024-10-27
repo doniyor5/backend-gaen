@@ -1,9 +1,10 @@
 gaen/.env
 gaen/.env/
 .idea
+.idea/
 .vscode
 .github
 venv
-*pyc
+*.pyc
 migrations
 .DS_Store
