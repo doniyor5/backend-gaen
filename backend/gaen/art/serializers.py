@@ -29,4 +29,4 @@ class ArtSerializer(serializers.ModelSerializer):
     class Meta:
         model = Art
         fields = ('title', 'art_name', 'country', 'email', 'description', 'art_img', 'category', 'is_accepted',
-                  'created_at', 'update_at', 'edited', 'user', 'comments')
+                  'created_at', 'update_at', 'edited', 'user', 'comments', 'slug')

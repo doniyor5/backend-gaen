@@ -35,7 +35,7 @@ class Art(models.Model):
     country = models.CharField(max_length=50)
     email = models.EmailField(max_length=120)
     description = models.TextField()
-    art_img = models.ImageField(upload_to=f'media/artsImages/%Y/%m/')
+    art_img = models.ImageField(upload_to=f'artsImages/%Y/%m/')
 
     category = models.ForeignKey(Category, to_field='name', on_delete=models.CASCADE)
 
@@ -80,9 +80,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.text} at {self.created_at}'
-
-    class Meta:
-        db_table = 'Comment'
 
     def update(self, **kwargs):
         self.text = kwargs['text']

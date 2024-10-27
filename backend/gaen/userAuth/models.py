@@ -14,7 +14,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, null=True, blank=True)
 
     username = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    profile_pic = models.ImageField(upload_to=f'media/profilePictures/%Y/%m/', null=True, blank=True)
+    profile_pic = models.ImageField(upload_to=f'profilePictures/%Y/%m/', null=True, blank=True)
     country = models.CharField(max_length=80, null=False, blank=False)
 
     is_staff = models.BooleanField(default=False)
