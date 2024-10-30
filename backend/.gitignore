@@ -9,3 +9,5 @@ venv
 migrations
 .DS_Store
 *.xml
+media
+media/
