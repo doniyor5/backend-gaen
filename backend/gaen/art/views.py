@@ -65,6 +65,7 @@ class ArtAPIView(GenericAPIView):
     permission_classes = [AdminUserCustom]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
+
     def get_queryset(self):
         return Art.objects.all()
 
@@ -115,16 +116,18 @@ class ArtAPIView(GenericAPIView):
         serializer = ArtSerializer(arts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json')
 
-    def post(self, request):
+    def post(self, request, slug=None):
         user = request.user
         if not user.is_authenticated:
             return Response(data={'message': 'Authentication required to create art'},
                             status=status.HTTP_401_UNAUTHORIZED)
 
-        serializer = ArtSerializer(data=request.data)
+        serializer = ArtSerializer(data=request.data, context={'request': request})
+
         if serializer.is_valid():
-            serializer.save(user=user)
+            serializer.save(user=user)  # Set user here
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, slug=None):

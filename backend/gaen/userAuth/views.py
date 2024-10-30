@@ -31,6 +31,7 @@ class RegisterView(GenericAPIView):
 
 class VerifyUserEmail(GenericAPIView):
     serializer_class = UserSerializer
+
     def post(self, request):
         try:
             passcode = request.data.get('otp')
@@ -99,7 +100,7 @@ class LogoutApiView(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'Logged out'}, status=status.HTTP_204_NO_CONTENT)
 
 
 class ProfileUpdateView(UpdateAPIView):

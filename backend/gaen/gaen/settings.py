@@ -71,6 +71,7 @@ SIMPLE_JWT = {
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ['https://shaxzodbek-muxtorov.jprq.site']
 #
 # CORS_ALLOW_METHODS = [
 #     'DELETE',
