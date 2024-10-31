@@ -184,10 +184,6 @@ else:
 STATIC_URL = "static/"
 
 STATIC_ROOT = '/var/www/gaen-static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    "/var/www/gaen-static/"
-]
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
