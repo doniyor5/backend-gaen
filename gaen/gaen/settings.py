@@ -73,7 +73,7 @@ SIMPLE_JWT = {
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://gaen.uz']
+CSRF_TRUSTED_ORIGINS = ['https://gaen.uz', 'https://www.gaen.uz']
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
@@ -175,15 +175,19 @@ USE_TZ = True
 if DEBUG:
     MEDIA_URL = 'media/'
     MEDIA_ROOT = BASE_DIR / 'media'
-    STATIC_URL = "static/"
-    STATIC_ROOT = BASE_DIR / 'static'
+
 
 else:
     MEDIA_URL = 'mediafiles/'
     MEDIA_ROOT = BASE_DIR / 'mediafiles'
-    STATIC_URL = "static/"
-    STATIC_ROOT = '/var/www/gaen-static/'
 
+STATIC_URL = "static/"
+
+STATIC_ROOT = '/var/www/gaen-static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    "/var/www/gaen-static/"
+]
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
