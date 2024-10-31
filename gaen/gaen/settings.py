@@ -11,7 +11,7 @@ env = environ.Env()
 
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = True
+DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = ['*']
 ADMIN_URL=env("ADMIN_URL")
