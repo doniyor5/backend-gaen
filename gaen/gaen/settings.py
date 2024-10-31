@@ -13,8 +13,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['*']
-ADMIN_URL=env("ADMIN_URL")
+ALLOWED_HOSTS = ['api.gaen.uz', 'api.gaen.uz', '159.65.126.81']
+
+ADMIN_URL = env("ADMIN_URL")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -168,8 +169,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if not DEBUG:
+    MEDIA_URL = 'mediafiles/'
+    MEDIA_ROOT = BASE_DIR / 'mediafiles'
+else:
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = "static/"
 
 # STATICFILES_DIRS = [
@@ -197,3 +202,7 @@ GITHUB_SECRET = env('GITHUB_SECRET')
 GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_PASSWORD = env('GOOGLE_CLIENT_PASSWORD')
 SOCIAL_AUTH_PASSWORD = env('SOCIAL_AUTH_PASSWORD')
+
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800 * 3
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800 * 3
