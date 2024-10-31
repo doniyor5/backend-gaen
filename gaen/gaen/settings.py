@@ -172,8 +172,8 @@ USE_TZ = True
 if not DEBUG:
     MEDIA_URL = 'mediafiles/'
     MEDIA_ROOT = BASE_DIR / 'mediafiles'
-    STATIC_URL = "staticfiles/"
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATIC_URL = "static/"
+    STATIC_ROOT = BASE_DIR / 'static'
 else:
     MEDIA_URL = 'media/'
     MEDIA_ROOT = BASE_DIR / 'media'
