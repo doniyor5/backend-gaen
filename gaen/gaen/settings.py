@@ -13,7 +13,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['api.gaen.uz', 'api.gaen.uz', '159.65.126.81']
+ALLOWED_HOSTS = ['api.gaen.uz', 'gaen.uz', '159.65.126.81']
 
 ADMIN_URL = env("ADMIN_URL")
 
