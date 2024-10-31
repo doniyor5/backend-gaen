@@ -21,15 +21,15 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path(f'{ADMIN_URL}/', admin.site.urls),
+    path(f'api/{ADMIN_URL}/', admin.site.urls),
 
     path('api/v1/auth/', include("userAuth.urls")),
     path('api/v1/auth/', include('socialAuth.urls')),
     path('api/v1/article/user/', include('art.urls')),
 
-    path('swagger/', schema_view.with_ui(cache_timeout=0), name='schema-ui'),
-    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/swagger/', schema_view.with_ui(cache_timeout=0), name='schema-ui'),
+    path('api/swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 if settings.DEBUG:
