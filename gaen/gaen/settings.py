@@ -14,6 +14,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+ADMIN_URL=env("ADMIN_URL")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -118,12 +119,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gaen.wsgi.application'
 AUTH_USER_MODEL = 'userAuth.User'
-
+DB_NAME = env("DB_NAME")
 DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / DB_NAME,
 
     }
 }
