@@ -179,7 +179,8 @@ else:
     MEDIA_URL = 'mediafiles/'
     MEDIA_ROOT = BASE_DIR / 'mediafiles'
     STATIC_URL = "static/"
-    STATIC_ROOT = '/var/www/static/'
+    STATIC_ROOT = '/var/www/gaen-static/'
+
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
