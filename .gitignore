@@ -6,8 +6,8 @@ gaen/.env/
 .github
 venv
 *.pyc
-migrations
 .DS_Store
 *.xml
 media
 media/
+db.sqlite3
