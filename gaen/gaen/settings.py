@@ -13,7 +13,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['api.gaen.uz', 'gaen.uz', '159.65.126.81']
+ALLOWED_HOSTS = ['api.gaen.uz', 'gaen.uz', '159.65.126.81', '127.0.0.1']
 
 ADMIN_URL = env("ADMIN_URL")
 
@@ -173,17 +173,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 
 STATIC_URL = '/static/'
-
+2
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    'var/www/static',
 ]
 
-STATIC_ROOT = os.getenv('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
+STATIC_ROOT = os.getenv('STATIC_ROOT', BASE_DIR / 'staticfiles')
+
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
 # ]
