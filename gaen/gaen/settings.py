@@ -180,9 +180,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+    '/var/www/staticfiles'
 ]
 
-STATIC_ROOT = os.getenv( '/var/www/staticfiles')
+STATIC_ROOT = '/var/www/staticfiles'
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
