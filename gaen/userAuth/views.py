@@ -8,13 +8,13 @@ from .utils import send_generated_otp_to_email
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .models import User
 
 
 class RegisterView(GenericAPIView):
     serializer_class = UserRegisterSerializer
-
+    permission_classes = [AllowAny]
     def post(self, request):
         user = request.data
         serializer = self.serializer_class(data=user)
