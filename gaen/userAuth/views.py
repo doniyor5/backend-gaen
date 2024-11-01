@@ -10,9 +10,8 @@ from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .models import User
-from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
+
 class RegisterView(GenericAPIView):
     serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny]
@@ -29,7 +28,7 @@ class RegisterView(GenericAPIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
+
 class VerifyUserEmail(GenericAPIView):
     serializer_class = UserSerializer
 
@@ -49,7 +48,7 @@ class VerifyUserEmail(GenericAPIView):
         except OneTimePassword.DoesNotExist as identifier:
             return Response({'message': 'passcode not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
+
 class LoginUserView(GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -58,7 +57,7 @@ class LoginUserView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-@csrf_exempt
+
 class PasswordResetRequestView(GenericAPIView):
     serializer_class = PasswordResetRequestSerializer
 
@@ -68,7 +67,7 @@ class PasswordResetRequestView(GenericAPIView):
         return Response({'message': 'we have sent you a link to reset your password'}, status=status.HTTP_200_OK)
         # return Response({'message':'user with that email does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
+
 class PasswordResetConfirm(GenericAPIView):
     def get(self, request, uidb64, token):
         try:
@@ -83,7 +82,7 @@ class PasswordResetConfirm(GenericAPIView):
         except DjangoUnicodeDecodeError as identifier:
             return Response({'message': 'token is invalid or has expired'}, status=status.HTTP_401_UNAUTHORIZED)
 
-@csrf_exempt
+
 class SetNewPasswordView(GenericAPIView):
     serializer_class = SetNewPasswordSerializer
 
@@ -92,7 +91,7 @@ class SetNewPasswordView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response({'success': True, 'message': "password reset is succesful"}, status=status.HTTP_200_OK)
 
-@csrf_exempt
+
 class LogoutApiView(GenericAPIView):
     serializer_class = LogoutUserSerializer
     permission_classes = [IsAuthenticated] or [IsAdminUser]
@@ -103,7 +102,7 @@ class LogoutApiView(GenericAPIView):
         serializer.save()
         return Response({'message': 'Logged out'}, status=status.HTTP_204_NO_CONTENT)
 
-@csrf_exempt
+
 class ProfileUpdateView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -117,7 +116,7 @@ class ProfileUpdateView(UpdateAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
+
 class DeleteUserApiView(GenericAPIView):
     permission_classes = [IsAuthenticated] or [IsAdminUser]
 
