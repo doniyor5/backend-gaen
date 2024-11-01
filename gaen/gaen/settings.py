@@ -11,8 +11,8 @@ env = environ.Env()
 
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env("DEBUG", default=False)
-
+# DEBUG = env("DEBUG", default=False)
+DEBUG = True
 ALLOWED_HOSTS = ['api.gaen.uz', 'gaen.uz', '159.65.126.81', '127.0.0.1']
 
 ADMIN_URL = env("ADMIN_URL")
