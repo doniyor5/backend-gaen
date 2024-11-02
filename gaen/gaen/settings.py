@@ -125,11 +125,12 @@ WSGI_APPLICATION = 'gaen.wsgi.application'
 AUTH_USER_MODEL = 'userAuth.User'
 DB_NAME = env("DB_NAME")
 DATABASES = {
-
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / DB_NAME,
-
+        'OPTIONS': {
+            'timeout': 20,  # wait longer for locked resources
+        }
     }
 }
 
