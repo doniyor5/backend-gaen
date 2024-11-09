@@ -43,7 +43,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -57,7 +57,7 @@ REST_FRAMEWORK = {
     ],
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
@@ -73,7 +73,7 @@ SIMPLE_JWT = {
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://gaen.uz', 'https://www.gaen.uz']
+CSRF_TRUSTED_ORIGINS = ['https://gaen.uz', 'https://www.gaen.uz', 'https://api.gaen.uz']
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
