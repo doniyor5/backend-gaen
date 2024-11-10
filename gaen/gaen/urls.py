@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import path, re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -9,15 +10,12 @@ from .settings import ADMIN_URL
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="GAEN",
+        title="Your API Title",
         default_version='v1',
-        description="Global Art Exchange Network",
-        terms_of_service="url",
-        contact=openapi.Contact(email="muxtorovshaxzodbek16@gmail.com"),
-        license=openapi.License(name="MIT LICENSE"),
+        description="Description of your API",
     ),
-    public=False,
-    permission_classes=[permissions.AllowAny],
+    public=True,  # Allows public access to the documentation
+    permission_classes=[permissions.AllowAny, ],  # No authentication required
 )
 
 urlpatterns = [
@@ -27,9 +25,9 @@ urlpatterns = [
     path('api/v1/auth/', include('socialAuth.urls')),
     path('api/v1/article/user/', include('art.urls')),
 
-    path('api/swagger/', schema_view.with_ui(cache_timeout=0), name='schema-ui'),
-    path('api/swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('api/redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    re_path(r'^api/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 if settings.DEBUG:

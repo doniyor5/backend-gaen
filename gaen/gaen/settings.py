@@ -209,4 +209,6 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-
+SWAGGER_SETTINGS = {
+    'PUBLIC': True,  # Set to False in production
+}
