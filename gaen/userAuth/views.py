@@ -1,4 +1,4 @@
-from rest_framework.generics import GenericAPIView, UpdateAPIView
+from rest_framework.generics import GenericAPIView, UpdateAPIView, get_object_or_404
 from rest_framework.response import Response
 from .models import OneTimePassword
 from .serializers import UserSerializer, PasswordResetRequestSerializer, LogoutUserSerializer, UserRegisterSerializer, \
@@ -15,6 +15,7 @@ from .models import User
 class RegisterView(GenericAPIView):
     serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny]
+
     def post(self, request):
         user = request.data
         serializer = self.serializer_class(data=user)
@@ -127,3 +128,13 @@ class DeleteUserApiView(GenericAPIView):
             return Response({'message': 'User not found'})
         user.delete()
         return Response({'message': 'Deleted'}, status.HTTP_204_NO_CONTENT)
+
+
+class GetUserApiView(GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = User.objects.get(slug=request.user.slug)
+        if user:
+            return Response({'user':UserSerializer(user).data}, status=status.HTTP_200_OK)
+        return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
