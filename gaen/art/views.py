@@ -65,7 +65,7 @@ class ArtAPIView(GenericAPIView):
     permission_classes = [AdminUserCustom]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    serializer_class = ArtSerializer  # Ensure you set the serializer class
+    serializer_class = ArtSerializer
 
     def get_queryset(self):
         return Art.objects.all()

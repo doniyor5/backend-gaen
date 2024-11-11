@@ -1,8 +1,6 @@
-import json
-from dataclasses import field
+
 from .models import User
 from rest_framework import serializers
-from string import ascii_lowercase, ascii_uppercase
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -105,8 +103,8 @@ class PasswordResetRequestSerializer(serializers.Serializer):
             request = self.context.get('request')
             current_site = get_current_site(request).domain
             relative_link = reverse('reset-password-confirm', kwargs={'uidb64': uidb64, 'token': token})
-            abslink = f"http://{current_site}{relative_link}"
-            email_body = f"Hi {user.first_name} use the link below to reset your password {abslink}"
+            absolute_link = f"https://{current_site}{relative_link}"
+            email_body = f"Hi {user.first_name} use the link below to reset your password {absolute_link}"
             data = {
                 'email_body': email_body,
                 'email_subject': "Reset your Password",
