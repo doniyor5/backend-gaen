@@ -60,63 +60,63 @@ class AdminCategoryAPIView(GenericAPIView):
         except Category.DoesNotExist:
             return Response({"error": f"category not found by {slug} id"}, status=status.HTTP_404_NOT_FOUND)
 
+
 class ArtAPIView(GenericAPIView):
     permission_classes = [AdminUserCustom]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
+    serializer_class = ArtSerializer  # Ensure you set the serializer class
 
     def get_queryset(self):
         return Art.objects.all()
 
     def get(self, request, slug=None):
-        user = request.user
-        arts = Art.objects.filter(user=user) if user.is_authenticated else Art.objects.all()
-
         if slug:
-            art = arts.filter(slug=slug).first()
+            art = self.get_queryset().filter(slug=slug).first()
             if not art:
-                return Response({'message': f'Art with ID {slug} not found'}, status=status.HTTP_404_NOT_FOUND)
-            serializer = ArtSerializer(art)
+                return Response(
+                    {'message': f'Art with slug "{slug}" not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            serializer = self.get_serializer(art)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        # search and filter
-        filters = {
-            'title__icontains': request.GET.get('title'),
-            'art_name__icontains': request.GET.get('art_name'),
-            'user__first_name__icontains': request.GET.get('first_name'),
-            'user__last_name__icontains': request.GET.get('last_name'),
-            'country__iexact': request.GET.get('country'),
-            'category__name__iexact': request.GET.get('category'),
-            'is_accepted__iexact': request.GET.get('is_accepted'),
-        }
-        for key, value in filters.items():
-            if value:
-                arts = arts.filter(**{key: value})
+        # If no slug is provided, return all arts with filtering and pagination
+        arts = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(arts)
         if page is not None:
-            serializer = ArtSerializer(page, many=True)
+            serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = ArtSerializer(arts, many=True)
+        serializer = self.get_serializer(arts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, slug=None):
         if not request.user.is_authenticated:
-            return Response({'message': 'Authentication required to create art'}, status=status.HTTP_401_UNAUTHORIZED)
-        serializer = ArtSerializer(data=request.data, context={'request': request})
+            return Response(
+                {'message': 'Authentication required to create art'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        serializer = self.get_serializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, slug=None):
-        art = Art.objects.filter(slug=slug).first()
+        art = self.get_queryset().filter(slug=slug).first()
         if not art:
-            return Response({'message': f'Art with ID {slug} not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {'message': f'Art with slug "{slug}" not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
         if art.user != request.user and not request.user.is_staff:
-            return Response({'message': 'You can only update your own art'}, status=status.HTTP_403_FORBIDDEN)
-        serializer = ArtSerializer(art, data=request.data, partial=True)
+            return Response(
+                {'message': 'You can only update your own art'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        serializer = self.get_serializer(art, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             art.is_accepted = False
@@ -125,11 +125,17 @@ class ArtAPIView(GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, slug=None):
-        art = Art.objects.filter(slug=slug).first()
+        art = self.get_queryset().filter(slug=slug).first()
         if not art:
-            return Response({'message': f'Art with ID {slug} not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {'message': f'Art with slug "{slug}" not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
         if art.user != request.user and not request.user.is_staff:
-            return Response({'message': 'You can only delete your own art'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'message': 'You can only delete your own art'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         art.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
