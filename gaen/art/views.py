@@ -165,7 +165,7 @@ class CommentAPIView(GenericAPIView):
         art = Art.objects.filter(slug=art_slug).first()
         if not art:
             return Response({'message': 'Given art does not exist'}, status=status.HTTP_404_NOT_FOUND)
-        text = request.data.get("text", "").strip()
+        text = request.data.get("comment", "").strip()
         if not text:
             return Response({'message': 'Text must not be empty or contain only white spaces'}, status=status.HTTP_400_BAD_REQUEST)
         comment_obj = Comment(text=text, user=request.user, art=art)
