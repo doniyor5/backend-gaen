@@ -1,9 +1,12 @@
+import json
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, status
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from .countries import countries as ct
 from .models import Art, Comment, Category
 from .pagination import StandardResultsSetPagination
 from .permission import AdminUserCustom
@@ -167,7 +170,8 @@ class CommentAPIView(GenericAPIView):
             return Response({'message': 'Given art does not exist'}, status=status.HTTP_404_NOT_FOUND)
         text = request.data.get("comment", "").strip()
         if not text:
-            return Response({'message': 'Text must not be empty or contain only white spaces'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Text must not be empty or contain only white spaces'},
+                            status=status.HTTP_400_BAD_REQUEST)
         comment_obj = Comment(text=text, user=request.user, art=art)
         comment_obj.save()
         return Response({'comment': CommentSerializer(comment_obj).data}, status=status.HTTP_201_CREATED)
@@ -198,3 +202,10 @@ class CommentAPIView(GenericAPIView):
             return Response({'message': 'You can only delete your own comments'}, status=status.HTTP_403_FORBIDDEN)
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class GetCountriesAPIView(GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        return Response(data=ct, status=status.HTTP_200_OK)
