@@ -14,7 +14,7 @@ from .serializers import ArtSerializer, CommentSerializer, CategorySerializer
 
 
 class AdminCategoryAPIView(GenericAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
     serializer_class = CategorySerializer
